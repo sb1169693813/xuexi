@@ -14,3 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('test',function(){
+    return 'get请求';
+});
+Route::get('mywelcome','MyWelcomeController@Index');
