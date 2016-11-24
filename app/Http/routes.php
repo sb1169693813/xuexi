@@ -15,7 +15,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('test',function(){
-    return 'get请求';
+    //return 'get请求';
+     //$user = \App\User::findOrFail(10);
+    $user = new \App\User();
+    return $user->all();
 });
 Route::get('mywelcome','MyWelcomeController@Index');
 Route::get('user',function(){
@@ -45,9 +48,17 @@ Route::get('userDelete',function(){
     $user->userDelete();
     return $user->userRead();
 });
+//加路由
+Route::get('userAdd',function(){
+    $user = new\App\User();
+    $user->userAdd();
+    return $user->all();
+});
 //集合
 Route::get('collection',function(){
 //    $user = new \App\User();
+    //对 Eloquent 中获取多个结果的方法（比如 all 和 get ）而言，其返回值是
+    //Illuminate\Database\Eloquent\Collection 的一个实例
 //    $users = $user->all();
     //集合
     //dd($users); //var_dump() and die()
@@ -77,6 +88,12 @@ Route::get('collection',function(){
     $user = new \App\User();
     $users = $user->all();
     dd($users);
+    //
+//    $users->chunk(100,function($data){
+//        foreach($data as $d){
+//
+//        }
+//    });
 });
 
 //get请求路由
