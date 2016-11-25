@@ -70,7 +70,162 @@ Route::get('collection',function(){
     //数组
     //dd($data);
     //集合
-    //dd($colletion);
+   // dd($colletion->all());
+
+//    $data = [1, 2, 3, 4, 5, 6, 7];
+//    $colletion= collect($data);
+//   // return $colletion->avg();
+//    $chunks = $colletion->chunk(4);
+//    return $chunks->toArray();
+
+    //collapse 方法将一个多维数组集合收缩成一个一维数组：
+    $collection = collect([[1, 2, 3], [4, 5, 6], [7, 8, 9]]);
+    //$co = $collection->toArray();
+    $co  = $collection->collapse();
+   // return $co;
+
+    //contains 方法判断集合是否包含一个给定项：
+    $collection2 = collect(['name' => 'Desk', 'price' => 100]);
+    //return $collection2->contains('price') == true ? 'yes' : 'no' ;
+    //你还可以传递一个键值对到  contains 方法，这将会判断给定键值对是否存在于集合中：(多维数组)
+    $collection3 = collect([
+        ['name' => 'Desk', 'price' => 100],
+        ['name' => 'Phone', 'price' => 200]
+    ]);
+        //dd($collection3->contains('name','Phone'));
+
+    //count 方法返回集合中所有项的数目：
+    $collection4 = collect(['name' => 'Desk', 'price' => 100]);
+    //dd($collection4->count());
+
+    //diff 方法将集合和另一个集合或原生 PHP 数组作比较
+    $collection5 = collect([1, 2, 3, 4, 5]);
+    $diff = $collection5->diff([2,4,5,7,8]);
+    //return $diff->all();//第一个数组中有哪些值不一样
+
+    //each 方法迭代集合中的数据项并传递每个数据项到给定回调
+    $collection6 = collect([2,4,5,7,8]);
+    $collection6->each(function($key,$value){
+       // dd($key);//不懂
+    });
+
+    //filter 方法通过给定回调过滤集合，只有通过给定测试的数据项才会保留下来：
+    $collection7 = collect([1, 2, 3, 4, 5]);
+     $filter= $collection7->filter(function($item){
+        return $item > 2;
+    });
+    //return $filter->all();
+
+    //first 方法返回通过测试集合的第一个元素
+    $collection8 = collect([1, 2, 3, 4, 5]);
+    $first =  $collection8->first(function($key,$item){
+        return $item > 2;
+    });
+   // return $first;
+
+    //flatten 方法将多维度的集合变成一维的：
+    $collection9 = collect(['name' => 'taylor', 'languages' => ['php', 'javascript']]);
+    // return $collection9->flatten();
+
+    //flip 方法将集合的键值做交换：
+    $collection10 = collect(['name'=>'sun','age'=>11,'height'=>175]);
+    //return $collection10->flip();
+
+    //forPage 方法返回新的包含给定页数数据项的集合：
+    $collection11 = collect([1, 2, 3, 4, 5, 6, 7, 8, 9])->forPage(2, 3);
+    //dd($collection11->all());
+
+
+    //get 方法返回给定键的数据项，如果不存在，返回 null：
+    $collection12 = collect(['name' => 'taylor', 'framework' => 'laravel']);
+    $value = $collection12->get('name');
+//    dd($value);
+
+    //groupBy 方法通过给定键分组集合数据项：
+    $collection13 = collect([
+        ['account_id' => 'account-x10', 'product' => 'Chair'],
+        ['account_id' => 'account-x10', 'product' => 'Bookcase'],
+        ['account_id' => 'account-x11', 'product' => 'Desk'],
+    ]);
+    //dd($collection13->groupBy('account_id')->toArray());
+
+    //has 方法判断给定键是否在集合中存在：
+    $collection14 = collect(['account_id' => 1, 'product' => 'Desk']);
+    //return $collection14->has('email') == true ? 'yes key' : 'no key';
+
+//    implode 方法连接集合中的数据项。其参数取决于集合中数据项的类型。
+//如果集合包含数组或对象，应该传递你想要连接的属性键，以及你想要放在值之间的 “粘
+//合”字符串：
+    $collection14 = collect([
+        ['account_id' => 1, 'product' => 'Desk'],
+        ['account_id' => 2, 'product' => 'Chair'],
+    ]);
+//    dd($collection14->implode('product','-'));
+//    echo "<br/>";
+
+//map 方法遍历集合并传递每个值给给定回调。该回调可以修改数据项并返回，从而生成一个新的经过修改的集合：
+    $collection15 = collect([1, 2, 3, 4, 5]);
+    $newcollection15 = $collection15->map(function($item, $keys){
+        return $item * 2;
+    });
+    //dd($newcollection15->all());
+
+    //only 方法返回集合中指定键的集合项：
+    $collection16 = collect(['product_id' => 1, 'name' => 'Desk', 'price' => 100, 'discount' => false]);
+    $only = $collection16->only(['product_id','name']);
+    //dd($only->all());
+
+   // pluck 方法为给定键获取所有集合值：
+    $collection17 = collect([
+        ['product_id' => 'prod-100', 'name' => 'Desk'],
+        ['product_id' => 'prod-200', 'name' => 'Chair'],
+    ]);
+     $pluck = $collection17->pluck('name');
+    //dd($pluck->all());
+
+    //pop 方法移除并返回集合中最后面的数据项：
+    $collection18 = collect([1, 2, 3, 4, 5]);
+    $pop = $collection18->pop();
+
+    //prepend 方法添加数据项到集合开头：
+    $collection18->prepend(0);
+
+    //pull 方法通过键从集合中移除并返回数据项：
+    $collection18->pull('2');
+    //dd($collection18->all());
+    //dd($pop);
+
+    //push 方法附加数据项到集合结尾：
+    $collection19 = collect([1, 2, 3, 4]);
+    $collection19->push(10);
+    //dd($collection19->all());
+
+    // put 方法在集合中设置给定键和值：
+    $collection20 = collect(['product_id' => 1, 'name' => 'Desk'],['product_id' => 2, 'name' => 'Chair']);
+    $collection20->put('price', 100);
+    //dd($collection20->all());
+    // ['product_id' => 1, 'name' => 'Desk', 'price' => 100]
+
+    $collection21 = collect([1, 2, 3, 4, 5]);
+    $random = $collection21->random(3);
+    //dd($random->all());
+
+    //take 方法使用指定数目的数据项返回一个新的集合：
+    $take = $collection21->take(3);//$collection->take(-2);
+    //dd($take->all());
+
+
+
+
+    //search 方法为给定值查询集合，如果找到的话返回对应的键，如果没找到，则返回  false ：
+    $collection22 = collect(['product_id' => 1, 'name' => 'Desk','age'=>27]);
+     //dd($collection22->search(27));
+
+
+
+
+
+
     //数组
    // return $colletion->all();
 
@@ -84,10 +239,10 @@ Route::get('collection',function(){
 //    $take = $colletion->take(2);
 //    dd($take);
 
-    //数据库中的集合
-    $user = new \App\User();
-    $users = $user->all();
-    dd($users);
+    //数据库中的集合(默认情况下，Eloquent 模型的集合总是返回  Collection 实例)
+//    $user = new \App\User();
+//    $users = $user->all();
+//    dd($users);
     //
 //    $users->chunk(100,function($data){
 //        foreach($data as $d){
