@@ -264,6 +264,55 @@ Route::get('input',function(){
 Route::get('form',function(){
     return view('form');
 });
-Route::any('formtest',function (){
-    return  \Illuminate\Support\Facades\Input::all();
+Route::any('formtest',function (Illuminate\Http\Request $request){
+//    return  \Illuminate\Support\Facades\Input::all();
+//    return $request->all();
+//    return $request->query('name');
+//    dd($request->has('name'));
+//    dd($request->exists('hjh'));
+
+    //请求检索
+//    dd($request->only('name','sex'));
+//    dd($request->except('name','sex'));
+        //dd($request->fullUrl());
+//    dd($request->url());
+
+    //请求历史
+//    $request->flash();
+//    $request->flashOnly('name');
+//    $request->flashExcept('name');
+
+    //文件
+    //dd($request->file());
+//    dd($request->file('ufile')->getSize());//对象
+   //dd($request->file('ufile')->getClientOriginalName());//对象  原始名字
+   dd($request->file('ufile')->getClientOriginalExtension());//对象   原始扩展名
 });
+Route::any('formtest2',function (Illuminate\Http\Request $request){
+    //请求历史
+    return $request->old();
+});
+
+//会话
+Route::any('sessionset',function (){
+//    $session = \Illuminate\Support\Facades\Session::all();
+$session = \Illuminate\Support\Facades\Session::put('username','sunbin');
+
+});
+Route::any('sessionget',function (){
+    $session = \Illuminate\Support\Facades\Session::get('username');
+    dd($session);
+});
+Route::any('sessionhas',function (){
+    $session = \Illuminate\Support\Facades\Session::has('user');
+    dd($session);
+});
+Route::any('sessionforget',function (){
+    $session = \Illuminate\Support\Facades\Session::forget('username');
+});
+//取一次，删掉
+Route::any('sessionpull',function (){
+    $session = \Illuminate\Support\Facades\Session::pull('username');//不能用
+    dd($session);
+});
+
