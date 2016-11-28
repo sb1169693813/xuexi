@@ -322,3 +322,113 @@ Route::get('signupindex',function(){
     return view('signup');
 });
 Route::any('signup','SignupController@signup');
+
+//帮助函数
+Route::get('helper/head',function(){
+    $arr = [
+        1,2,3
+    ];
+    return head($arr);
+
+});
+Route::get('helper/array_only',function(){
+    $arr = [
+        'name'=>'sun',
+        'age'=>'16',
+        'job'=>'worker',
+    ];
+    return array_only($arr,'age');
+});
+Route::get('helper/array_first',function(){
+    $arr = [
+        10,20,30
+    ];
+    return array_first($arr,function($key,$value){
+        return $value > 10;
+    });
+});
+Route::get('helper/array_add',function(){
+    $arr = [
+        10,20,30
+    ];
+    return array_add($arr,'name','bin');
+});
+Route::get('helper/array_excpet',function(){
+    $arr = [
+        'name'=>'sun',
+        'age'=>'16',
+        'job'=>'worker',
+    ];
+    return array_except($arr,['name','age']);
+});
+Route::get('helper/array_flatten',function(){
+    //多为数组变一位
+    $arr = [
+        'name'=>'sun',
+        'arr'=>[
+            'age'=>90,
+            'job'=>'nurse',
+        ],
+    ];
+    return array_flatten($arr);
+});
+Route::get('helper/array_where',function(){
+    //条件
+    $arr = [
+        'name'=>'sun',
+        'age'=>90,
+        'job'=>'nurse',
+
+    ];
+    return array_where($arr,function($k,$v){
+        return is_string($v);
+    });
+});
+Route::get('helper/array_last',function(){
+    //条件
+    $arr = [
+        'name'=>'sun',
+        'age'=>90,
+        'job'=>'nurse',
+
+    ];
+    return array_last($arr);
+});
+
+//路径帮助函数
+Route::get('helper/app_path',function(){
+    return app_path();
+});
+Route::get('helper/config_path',function(){
+    return config_path();
+});
+Route::get('helper/public_path',function(){
+    return public_path();
+});
+Route::get('helper/storage_path',function(){
+    return storage_path();
+});
+
+//字符串帮助函数
+Route::get('helper/str_plural',function(){
+    //变复数
+    return str_plural('ability');
+});
+Route::get('helper/starts_with',function(){
+    dd(starts_with('abcd','c')) ;
+});
+Route::get('helper/ends_with',function(){
+    dd(ends_with('abcd','d')) ;
+});
+Route::get('helper/camel_case',function(){
+    dd(camel_case('hello_world')) ;//helloWorld
+});
+Route::get('helper/class_basename',function(){
+    dd(class_basename('App\Controller\MyController')) ;
+});
+Route::get('helper/str_limit',function(){
+    dd(str_limit('abcd',2)) ;
+});
+Route::get('helper/str_is',function(){
+    dd(str_is('b*','abcd')) ;
+});
