@@ -316,3 +316,9 @@ Route::any('sessionpull',function (){
     dd($session);
 });
 
+
+//注册表单验证
+Route::get('signupindex',function(){
+    return view('signup');
+});
+Route::any('signup','SignupController@signup');
