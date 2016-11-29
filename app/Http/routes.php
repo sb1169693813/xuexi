@@ -340,6 +340,7 @@ Route::get('helper/array_only',function(){
     return array_only($arr,'age');
 });
 Route::get('helper/array_first',function(){
+//    返回通过测试数组的第一个元素
     $arr = [
         10,20,30
     ];
@@ -394,6 +395,17 @@ Route::get('helper/array_last',function(){
     ];
     return array_last($arr);
 });
+Route::get('helper/array_dot',function(){
+    //使用”.”号将将多维数组转化为一维数组
+    $arr = [
+        'name'=>'sun',
+        'info'=>[
+            'age'=>90,
+            'job'=>'nurse',
+            ]
+    ];
+    return array_dot($arr);
+});
 
 //路径帮助函数
 Route::get('helper/app_path',function(){
@@ -411,7 +423,7 @@ Route::get('helper/storage_path',function(){
 
 //字符串帮助函数
 Route::get('helper/str_plural',function(){
-    //变复数
+    //变复数(str_singular)
     return str_plural('ability');
 });
 Route::get('helper/starts_with',function(){
@@ -423,6 +435,10 @@ Route::get('helper/ends_with',function(){
 Route::get('helper/camel_case',function(){
     dd(camel_case('hello_world')) ;//helloWorld
 });
+//将给定字符串转化为下划线分隔的字符串：
+Route::get('helper/snake_case',function(){
+    dd(snake_case('helloWorld')) ;//helloWorld
+});
 Route::get('helper/class_basename',function(){
     dd(class_basename('App\Controller\MyController')) ;
 });
@@ -431,4 +447,17 @@ Route::get('helper/str_limit',function(){
 });
 Route::get('helper/str_is',function(){
     dd(str_is('b*','abcd')) ;
+});
+Route::get('helper/e',function(){
+    //e 函数在给定字符串上运行  htmlentities ：
+    dd(e("<p>111</p>")) ;
+});
+Route::get('helper/str_contains',function(){
+    dd(str_contains('abcd','f')) ;
+});
+
+
+//URL 函数
+Route::get('helper/action',function(){
+   //dd(action('AboutController@index')) ;
 });
